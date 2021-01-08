@@ -20,4 +20,4 @@ hist2d(x,y)
 **François Beauducel**, [IPGP](www.ipgp.fr), [beaudu](https://github.com/beaudu), beauducel@ipgp.fr
 
 ## Documentation
-Type `doc hist2d` for help and syntax.
+Type `doc hist2d` for help and syntax. See also [![View 2-D histogram plot on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://fr.mathworks.com/matlabcentral/fileexchange/66629-2-d-histogram-plot) users community comments.
