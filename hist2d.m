@@ -3,7 +3,7 @@ function varargout=hist2d(x,y,varargin)
 %	HIST2D(X,Y) creates a bivariate histogram plot of vectors X and Y.
 %
 %	The function uses an automatic binning algorithm that returns bins with
-%	a uniform area, chosen to cover the range of elements in X and Y and 
+%	a uniform area, chosen to cover the range of elements in X and Y and
 %	reveal the underlying shape of the distribution. HIST2D without output
 %	argument displays the bins as 3-D rectangular bars such that the height
 %	of each bar indicates the number of elements in the bin.
@@ -11,7 +11,7 @@ function varargout=hist2d(x,y,varargin)
 %	HIST2D(X,Y,NBINS) specifies the number of bins to use in each dimension
 %	of the histogram (default is 10).
 %
-%	HIST2D(X,Y,Xedges,Yedges) specifies the edges of the bins in each 
+%	HIST2D(X,Y,Xedges,Yedges) specifies the edges of the bins in each
 %	dimension using the vectors Xedges and Yedges.
 %
 %	HIST2D(...,'tile') plots the result as a tiled 2-D image.
@@ -28,29 +28,29 @@ function varargout=hist2d(x,y,varargin)
 %
 %	It is also possible to normalize the bin counts matrix:
 %
-%	HIST2D(...,'probability') normalizes bin counts as a probability. The 
-%	height of each bar is the relative number of observations (number of 
+%	HIST2D(...,'probability') normalizes bin counts as a probability. The
+%	height of each bar is the relative number of observations (number of
 %	observations in bin / total number of observations). The sum of the bar
 %	heights is 1.
 %
-%	HIST2D(...,'countdensity') normalizes bin counts as count density. The 
-%	height of each bar is (number of observations in bin) / (area of bin). 
-%	The volume (height * area) of each bar is the number of observations 
+%	HIST2D(...,'countdensity') normalizes bin counts as count density. The
+%	height of each bar is (number of observations in bin) / (area of bin).
+%	The volume (height * area) of each bar is the number of observations
 %	in the bin. The sum of the bar volumes is equal to numel(X) and numel(Y).
 %
 %	HIST2D(...,'pdf') normalizes bin counts as probability density function.
-%	The height of each bar is (number of observations in the bin) / (total 
-%	number of observations * area of bin). The volume of each bar is the 
+%	The height of each bar is (number of observations in the bin) / (total
+%	number of observations * area of bin). The volume of each bar is the
 %	relative number of observations. The sum of the bar volumes is 1.
 %
-%	HIST2D(...,'cumcount') normalizes bin counts as cumulative counts. The 
+%	HIST2D(...,'cumcount') normalizes bin counts as cumulative counts. The
 %	height of each bar is the cumulative number of observations in each bin
 %	and all previous bins in both the X and Y dimensions. The height of the
 %	last bar is equal to numel(X) and numel(Y).
 %
-%	HIST2D(...,'cdf') normalizes bin counts as cumulative density function. 
-%	The height of each bar is equal to the cumulative relative number of 
-%	observations in each bin and all previous bins in both the X and Y 
+%	HIST2D(...,'cdf') normalizes bin counts as cumulative density function.
+%	The height of each bar is equal to the cumulative relative number of
+%	observations in each bin and all previous bins in both the X and Y
 %	dimensions. The height of the last bar is 1.
 %
 %
@@ -62,31 +62,31 @@ function varargout=hist2d(x,y,varargin)
 %
 %	Author: Francois Beauducel <beauducel@ipgp.fr>
 %	Created: 2018-03-24 in Yogyakarta, Indonesia
-%	Updated: 2021-01-08
+%	Updated: 2022-03-02
 
-%	Copyright (c) 2018-2021, François Beauducel, covered by BSD License.
+%	Copyright (c) 2018-2022, FranÃ§ois Beauducel, covered by BSD License.
 %	All rights reserved.
 %
-%	Redistribution and use in source and binary forms, with or without 
-%	modification, are permitted provided that the following conditions are 
+%	Redistribution and use in source and binary forms, with or without
+%	modification, are permitted provided that the following conditions are
 %	met:
 %
-%	   * Redistributions of source code must retain the above copyright 
+%	   * Redistributions of source code must retain the above copyright
 %	     notice, this list of conditions and the following disclaimer.
-%	   * Redistributions in binary form must reproduce the above copyright 
-%	     notice, this list of conditions and the following disclaimer in 
+%	   * Redistributions in binary form must reproduce the above copyright
+%	     notice, this list of conditions and the following disclaimer in
 %	     the documentation and/or other materials provided with the distribution
-%	                           
-%	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-%	AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-%	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-%	ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-%	LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-%	CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-%	SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-%	INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-%	CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-%	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+%
+%	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+%	AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+%	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+%	ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+%	LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+%	CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+%	SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+%	INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+%	CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+%	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 %	POSSIBILITY OF SUCH DAMAGE.
 
 if nargin < 2
@@ -131,9 +131,9 @@ n = zeros(length(ybins),length(xbins));
 
 % main loop to fill the matrix with element counts
 for i = 1:size(n,1)
-	k = find(y >= yedges(i) & y < yedges(i+1));
+	k = (y >= yedges(i) & y < yedges(i+1));
 	for j = 1:size(n,2)
-		n(i,j) = length(find(x(k) >= xedges(j) & x(k) < xedges(j+1)));
+		n(i,j) = sum(x(k) >= xedges(j) & x(k) < xedges(j+1));
 	end
 end
 
@@ -147,7 +147,7 @@ elseif any(strcmpi(varargin,'probability'))
 elseif any(strcmpi(varargin,'pdf'))
 	n = n./a/sum(n(:));
 elseif any(strcmpi(varargin,'cdf'))
-	n = cumsum(cumsum(n,1),2)/sum(n(:));	
+	n = cumsum(cumsum(n,1),2)/sum(n(:));
 end
 
 % plots a 3-D graph with indexed colors
