@@ -62,9 +62,9 @@ function varargout=hist2d(x,y,varargin)
 %
 %	Author: Francois Beauducel <beauducel@ipgp.fr>
 %	Created: 2018-03-24 in Yogyakarta, Indonesia
-%	Updated: 2022-03-02
+%	Updated: 2023-11-01
 
-%	Copyright (c) 2018-2022, François Beauducel, covered by BSD License.
+%	Copyright (c) 2018-2023, François Beauducel, covered by BSD License.
 %	All rights reserved.
 %
 %	Redistribution and use in source and binary forms, with or without
@@ -154,9 +154,6 @@ end
 if nargout < 1 || plot_bar3 || plot_tile
 	if plot_tile || (numel(n) > 2500 && ~plot_bar3)
 		imagesc(xbins,ybins,n)
-		hold on
-		plot(x,y,'.k','MarkerSize',10)
-		hold off
 	else
 		% unit cube XYZ coordinates for patch
 		ux = [0 1 1 0 0 0;1 1 0 0 1 1;1 1 0 0 1 1;0 1 1 0 0 0];

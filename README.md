@@ -13,7 +13,9 @@ It is possible to specify the number of bins, the edges of the bins, and to norm
 ```matlab
 x = randn(1000,1);
 y = randn(1000,1);
-hist2d(x,y)
+subplot(121), hist2d(x,y)
+subplot(122), hist2d(x,y,'tile')
+hold on, plot(x,y,'.k'), hold off
 ```
 
 ## Author
